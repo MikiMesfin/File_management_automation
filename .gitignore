@@ -25,7 +25,7 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Keep the media directory structure but ignore contents
+# Media files
 media/*
 !media/.gitkeep
 media/temp/*
