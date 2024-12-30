@@ -1,0 +1,32 @@
+# .gitignore
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep the media directory structure but ignore contents
+media/*
+!media/.gitkeep
+media/temp/*
+!media/temp/.gitkeep
