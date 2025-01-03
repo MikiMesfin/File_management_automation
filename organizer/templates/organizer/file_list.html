@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Files</title>
+</head>
+<body>
+    <h2>Organized Files</h2>
+    <a href="{% url 'upload_file' %}">Upload New File</a>
+    <ul>
+    {% for file in files %}
+        <li>
+            {{ file.original_name }} ({{ file.file_type }})
+            <br>
+            Organized at: {{ file.organized_path }}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html> 

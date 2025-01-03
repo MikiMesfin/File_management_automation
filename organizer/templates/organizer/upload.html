@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <style>
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload File</h2>
+    <div id="message"></div>
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" required>
+        <button type="submit">Upload</button>
+    </form>
+    <a href="{% url 'file_list' %}">View Files</a>
+
+    <script>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageDiv = document.getElementById('message');
+            const formData = new FormData(this);
+            
+            fetch('/upload/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    messageDiv.className = 'success';
+                    messageDiv.textContent = 'File uploaded successfully!';
+                    setTimeout(() => window.location.href = '{% url "file_list" %}', 2000);
+                } else {
+                    messageDiv.className = 'error';
+                    messageDiv.textContent = data.message || 'Upload failed';
+                }
+            })
+            .catch(error => {
+                messageDiv.className = 'error';
+                messageDiv.textContent = 'An error occurred during upload';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html> 
